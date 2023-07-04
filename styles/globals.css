@@ -19,3 +19,12 @@
 :focus-visible {
   outline: none !important;
 }
+/* start product-detail */
+.detail-info {
+  text-transform: capitalize;
+}
+.info-title {
+  font-size: 20px;
+  color: blue;
+}
+/* end product-detail */
