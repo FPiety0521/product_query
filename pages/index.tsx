@@ -38,7 +38,17 @@ export default function Home() {
       axios.request(options).then(p => 
         setProducts({products: p.data.data.search.products, loading: false})
       ).catch(err => {
-        err.response.request.status && toast.error('You need to purchase API key.', {
+        err.response.request.status ? toast.error('You need to purchase API key.', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+        :
+        toast.error('Error.', {
           position: 'top-right',
           autoClose: 3000,
           hideProgressBar: false,
