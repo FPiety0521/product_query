@@ -1,10 +1,12 @@
-## Getting Started
+## Documentation
 
 ```bash
 1. Installing the modules
 npm install
 
-2. Starting the project
+2. Place your API key in .env
+
+3. Starting the project
 npm run dev
 # or
 yarn dev

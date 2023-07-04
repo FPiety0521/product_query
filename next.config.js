@@ -1,18 +1,18 @@
 /** @type {import('next').NextConfig} */
 
 const path = require('path');
-const dotenv = require('dotenv');
+const nextEnv = require('next-env');
+const dotenvLoad = require('dotenv-load');
 
-dotenv.config();
+dotenvLoad();
 
-const nextConfig = {
+const withNextEnv = nextEnv();
+
+const nextConfig = withNextEnv({
   reactStrictMode: true,
   webpack: (config) => {
     config.resolve.alias['@'] = path.resolve(__dirname);
     return config;
-  },
-  env: {
-    API_URL: process.env.API_URL,
   },
   images: {
     remotePatterns: [
@@ -24,6 +24,6 @@ const nextConfig = {
       },
     ],
   },
-}
+})
 
 module.exports = nextConfig

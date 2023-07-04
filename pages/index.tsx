@@ -3,6 +3,8 @@
 import { useState } from "react"
 import axios from "axios";
 import Link from 'next/link';
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Home() {
   const [keyword, setKeyword] = useState('womens shoes');
@@ -11,12 +13,12 @@ export default function Home() {
     loading: false
   });
 
-  const handleKeyword = (e) => {
+  const handleKeyword = (e: any) => {
     setKeyword(e.target.value);
   }
   
   const getProduct = () => {
-    setProducts({...products, loading: true})
+    setProducts({...products, loading: true});
     const options = {
       method: 'GET',
       url: 'https://target-com-shopping-api.p.rapidapi.com/product_search',
@@ -27,7 +29,7 @@ export default function Home() {
         count: '9'
       },
       headers: {
-        'X-RapidAPI-Key': 'e1e3aa51cbmsh94a35cc23838b53p1e4c62jsn0ad9f1f5faf3',
+        'X-RapidAPI-Key': process.env.NEXT_PUBLIC_API_KEY,
         'X-RapidAPI-Host': 'target-com-shopping-api.p.rapidapi.com'
       }
     };
@@ -35,6 +37,17 @@ export default function Home() {
     try {
       axios.request(options).then(p => 
         setProducts({products: p.data.data.search.products, loading: false})
+      ).catch(err => {
+        err.response.request.status && toast.error('You need to purchase API key.', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        setProducts({...products, loading: false})}
       );
     } catch (error) {
       console.error(error);
@@ -56,7 +69,7 @@ export default function Home() {
         <>
           <h1>Search Result</h1>
           <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3">
-            {products.products.map((p, index) => 
+            {products.products.map((p: any, index: number) => 
               <Link key={index} className="mb-3"
                 href={{
                   pathname: '/product-detail',
@@ -71,6 +84,7 @@ export default function Home() {
         </>
         }
       </div>
+      <ToastContainer />
     </main>
   )
 }
