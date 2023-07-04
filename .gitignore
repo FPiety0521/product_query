@@ -9,9 +9,9 @@
 /coverage
 
 # image
-.png
-.jpg
-.svg
+*.png
+*.jpg
+*.svg
 
 # next.js
 /.next/
